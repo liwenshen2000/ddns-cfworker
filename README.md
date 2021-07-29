@@ -1,39 +1,33 @@
-# ʕ •́؈•̀) `workers-typescript-template`
+# 👷 DDNS by Cloudflare Worker
 
-A batteries included template for kick starting a TypeScript Cloudflare worker project.
+One line request to implement DDNS by Cloudflare Worker.
 
-## Note: You must use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler/install-update) 1.17 or newer to use this template.
+## Deploy
 
-## 🔋 Getting Started
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/wenshenli/ddns-cfworker)
 
-This template is meant to be used with [Wrangler](https://github.com/cloudflare/wrangler). If you are not already familiar with the tool, we recommend that you install the tool and configure it to work with your [Cloudflare account](https://dash.cloudflare.com). Documentation can be found [here](https://developers.cloudflare.com/workers/tooling/wrangler/).
-
-To generate using Wrangler, run this command:
+## Usage
 
 ```bash
-wrangler generate my-ts-project https://github.com/cloudflare/worker-typescript-template
+curl -{4|6} "https://ddns.<username>.workers.dev/<Provider>?<Keys>&domain=<domain>&subdomain=<subdomain>[&ip=<ip>]"
 ```
 
-### 👩 💻 Developing
+> If you don't use the `ip` parameter, it's modify the dns record to use your public ip from request.
 
-[`src/index.ts`](./src/index.ts) calls the request handler in [`src/handler.ts`](./src/handler.ts), and will return the [request method](https://developer.mozilla.org/en-US/docs/Web/API/Request/method) for the given request.
+> It is recommended to specify ipv4 or ipv6 resolve.
 
-### 🧪 Testing
+### DNS provider
 
-This template comes with jest tests which simply test that the request handler can handle each request method. `npm test` will run your tests.
+#### Dnspod
 
-### ✏️ Formatting
+请前往[密钥中心](https://console.dnspod.cn/account/token )申请ID和Token并按如下格式进行填写
 
-This template uses [`prettier`](https://prettier.io/) to format the project. To invoke, run `npm run format`.
+```
+<Provider> = dnspod
+<Keys> = id=<id>&token=<token>
+```
 
-### 👀 Previewing and Publishing
-
-For information on how to preview and publish your worker, please see the [Wrangler docs](https://developers.cloudflare.com/workers/tooling/wrangler/commands/#publish).
-
-## 🤢 Issues
-
-If you run into issues with this specific project, please feel free to file an issue [here](https://github.com/cloudflare/workers-typescript-template/issues). If the problem is with Wrangler, please file an issue [here](https://github.com/cloudflare/wrangler/issues).
-
-## ⚠️ Caveats
-
-The `service-worker-mock` used by the tests is not a perfect representation of the Cloudflare Workers runtime. It is a general approximation. We recommend that you test end to end with `wrangler dev` in addition to a [staging environment](https://developers.cloudflare.com/workers/tooling/wrangler/configuration/environments/) to test things before deploying.
+例子：
+```bash
+curl -4 "https://ddns.user.workers.dev/dnspod?id=222222&token=222222&domain=example.com&subdomain=test"
+```
