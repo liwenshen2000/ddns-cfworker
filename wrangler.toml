@@ -1,4 +1,4 @@
-name = "ddns-cfworker"
+name = "ddns"
 type = "javascript"
 zone_id = ""
 account_id = ""
