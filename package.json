@@ -39,5 +39,7 @@
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@cfworker/web": "^1.8.3"
+  }
 }
